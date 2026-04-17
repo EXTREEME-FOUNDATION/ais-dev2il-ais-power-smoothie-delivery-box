@@ -14,7 +14,7 @@ ENV PATH="/root/.local/bin:$PATH"
 
 
 # Copy project files needed for dependency installation
-COPY ais-dev2il-ais-power-smoothie-delivery-box/pyproject.toml ais-dev2il-ais-power-smoothie-delivery-box/uv.lock ais-dev2il-ais-power-smoothie-delivery-box/.python-version ./
+COPY pyproject.toml uv.lock .python-version ./
 
 # Install dependencies (creates .venv with Python and packages)
 RUN uv sync --frozen
@@ -28,8 +28,8 @@ WORKDIR /app
 COPY --from=builder /app/.venv /app/.venv
 
 # Copy application code
-COPY ais-dev2il-ais-power-smoothie-delivery-box/main.py ./
-COPY ais-dev2il-ais-power-smoothie-delivery-box/smoothies ./smoothies
+COPY main.py ./
+COPY smoothies ./smoothies
 
 # Set the entrypoint
 ENTRYPOINT ["/app/.venv/bin/python", "main.py"]
